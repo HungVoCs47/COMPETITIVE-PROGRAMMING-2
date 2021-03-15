@@ -1,4 +1,8 @@
- # include <bits/stdc++.h>
+/*
+    * Author: HungVoCs47
+    * Status: AC
+*/
+# include <bits/stdc++.h>
 using namespace std;
 vector<int>bfs[100005];
 bool ok[100005];
