@@ -1,36 +1,41 @@
 # include <bits/stdc++.h>
 using namespace std;
 # define ll long long
-typedef pair<int,int>ii;
 int n,m;
 const int MAXN=1e5+5;
 const int MOD=1e9+7;
 vector<int>adj[MAXN];
-ll d[MAXN];
-ll cnt[MAXN]={0};
+ll d[MAXN]={0};
 bool visited[MAXN]={false};
-void dijkstra()
+vector<int>result;
+void dfs(int u)
 {
-	priority_queue<ii,vector<ii>,greater<ii>>q;
-	memset(d,1e9,sizeof(d));
-	q.push(ii(0,1));
-	d[1]=0;
+	visited[u]=true;
+	for(int v:adj[u])
+	{
+		if(!visited[v]) dfs(v);
+	}
+	result.push_back(u);
+}
+/*void bfs()
+{
+	queue<int>q;
+	q.push(1);
+	d[1]=1;
 	while(!q.empty())
 	{
-		int u=q.top().second,du=q.top().first;q.pop();
-		if(d[u]!=du);
+		int u=q.front();q.pop();
+		//cout<<u<<" ";
+		if()
+		visited[u]=true;
 		for(int v:adj[u])
 		{
-			if(d[v]<du+1)
-			{
-				d[v]=du+1;
-				q.push(ii(d[v],v));
-			}
-			cnt[v]++;
-			cnt[v]%=MOD;
+			q.push(v);
+			d[v]++;
+			d[v]%=MOD;
 		}
 	}
-}
+}*/
 int main(){
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 	cin>>n>>m;
@@ -39,8 +44,13 @@ int main(){
 		cin>>a>>b;
 		adj[a].push_back(b);
 	}
-	dijkstra();
-	//for(int i=1;i<=n;i++) cout<<d[i]<<" ";
-	cout<<cnt[n];
+	dfs(1);
+	reverse(result.begin(),result.end());
+	d[1]=1;
+	for(int i=0;i<result.size();i++)
+	{
+		for(int j:adj[result[i]]) d[j]+=d[result[i]],d[j]%=MOD;
+	}
+	cout<<d[n];
 	return 0;
 }
