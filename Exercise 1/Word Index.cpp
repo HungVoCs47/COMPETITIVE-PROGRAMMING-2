@@ -1,72 +1,46 @@
-#include <stdio.h>
+#include <iostream>
 #include <string.h>
-#include <algorithm>
-
-int num[12] = {0,26,325,2600,14950,65780,230230,0,0,0,0};
-int n, sum, flag;
-char tmp[11], str[11];
-
-void cal(int a,int b,int m)
+using namespace std;
+int c[30][30];
+void C()
 {
-	int i;
-
-	for(i = a; i <= b; i++)
-	{
-		if(flag)
-			return ;
-		tmp[n-m] = i+'a'-1;
-		if(m==1)
-		{
-			sum++;
-			tmp[n] = '\0';
-			if(strcmp(tmp,str)==0)
-			{
-				flag = 1;
-				return ;
-			}
-			continue;
+    for(int i=0;i<=26;i++){
+		for(int j=0;j<=i;j++){
+			if(i==0||j==0) c[i][j]=1;
+			if(i==j) c[i][j]=1;
+			else c[i][j]=c[i-1][j-1]+c[i-1][j];
 		}
-		cal(i+1,b+1,m-1);
 	}
 }
-
 int main()
 {
-	int i;
-	char tmp[100];
-
-	while(scanf("%s",str)==1){
-	n = strlen(str);
-	strcpy(tmp,str);
-	std::sort(tmp,tmp+n);
-	if(strcmp(str,tmp)!=0)
-	{
-		puts("0");
-		continue;
-	}
-	for(i = 1; tmp[i]; i++)
-	{
-		if(tmp[i]==tmp[i-1])
-		{
-			i = -1;
-			break;
-		}
-	}
-	if(i==-1)
-	{
-		puts("0");
-		continue;
-	}
-	for(i = 0; i < n-1; i++)
-		if(str[i]>=str[i+1])
-		{
-			printf("0\n");
-			return 0;
-		}
-	sum = flag = 0;
-	for(i = 1; i < n; i++)
-		sum += num[i];
-	cal(1,27-n,n);
-	printf("%d\n",sum);}
-	return 0;
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    string s;
+    C();
+    while(cin>>s)
+    {
+        int len=s.length();
+        int i;
+        for(i=1;i<len;i++)
+        {
+            if(s[i]<=s[i-1])
+                break;
+        }
+        if(i<len)
+        {
+            cout<<0<<"\n";
+            continue;
+        }
+        int sum=0;
+        for(i=1;i<len;i++)
+          sum+=c[26][i]; 
+            for(int k=0;k<len;k++) 
+        {
+            char ch=k==0?'a':(s[k-1]+1);
+              for(char j=ch;j<s[k];j++)
+                sum+=c['z'-j][len-1-k];
+        }
+                 cout<<sum+1<<"\n";
+    }
+    return 0;
 }
