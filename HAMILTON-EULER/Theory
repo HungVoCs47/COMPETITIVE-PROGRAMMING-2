@@ -2,3 +2,6 @@
 Đồ thị vô hướng liên thông G=(V,E) có đường đi Euler khi và chỉ khi có đúng 2 đỉnh bậc lẻ.
 Đồ thị có hướng liên thông yếu G=(V,E) có chu trình Euler khi và chỉ khi deg+(v)=deg-(v).
 Đồ thị có hướng liên thông yếu G=(V,E) có chu trình Euler khi và chỉ khi có đúng 2 đỉnh deg+(u)-deg-(u)==1 && deg-(v)-deg+(v)==1. Các đỉnh còn lại deg+(u)=deg-(u).
+Thuật Toán Fleury:
+Chỉ lựa chọn cầu (hay cạnh một đi không trở lại) khi không còn lựa chọn nào khác.
+Loại bỏ cạnh đã qua ra khỏi đồ thị.
