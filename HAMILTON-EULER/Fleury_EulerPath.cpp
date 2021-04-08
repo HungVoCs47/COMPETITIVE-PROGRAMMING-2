@@ -27,6 +27,7 @@ void findEulerPath(int u)
 			deg[u][v]--;
 			deg[v][u]--;
 			findEulerPath(v);
+			//result.push_back(v); remember to push_back(starting);
 		}
 	}
 	result.push_back(u);
